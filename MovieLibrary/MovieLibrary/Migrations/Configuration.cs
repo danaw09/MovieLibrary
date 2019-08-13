@@ -18,7 +18,7 @@ namespace MovieLibrary.Migrations
 
             //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
             //  to avoid creating duplicate seed data.
-            context.Movies.AddOrUpdate(
+                 context.Movies.AddOrUpdate(
                  new Models.Movie { Title = "The Departed", Genre = "Drama", DirectorName = "Martin Scorsese" },
                 new Models.Movie { Title = "The Dark Knight", Genre = "Drama", DirectorName = "Christopher Nolan" },
                 new Models.Movie { Title = "Inception", Genre = "Drama", DirectorName = "Christopher Nolan" },
