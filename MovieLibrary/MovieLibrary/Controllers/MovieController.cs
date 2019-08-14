@@ -7,50 +7,65 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Cors;
 
+
 namespace MovieLibrary.Controllers
 {
     public class MovieController : ApiController
     {
         EnableCorsAttribute cors = new EnableCorsAttribute( "*",  "*", "*");
         ApplicationDbContext db;
+
+       
         public MovieController()
         {
             db = new ApplicationDbContext();
         }
-
+       
+      
         // GET: api/Movie
-        public IEnumerable<string> Get()
+        public IEnumerable<Movie> Get()
         {
-            return new string[] { "value1", "value2" };
+            var movie = db.Movies.ToList();
+            return movie;
 
         }
-          //  return db.Movies;
+       
 
         // GET: api/Movie/5
-        public string Get(int id)
+        public Movie Get(int id)
         {
-            //var movie = db.Movies
-            //     .Include(m => m.    );
-            //   .Single(m => m.    )
-            //return Movie;
+           var movie = db.Movies.Where(m => m.MovieId == id).SingleOrDefault();
 
-            return $"value (id)";
+           return movie;
         }
-
+        
         // POST: api/Movie
-        public void Post([FromBody]string value)
+        public void Post([FromBody]Movie movie)
         {
+            ApplicationDbContext db = new ApplicationDbContext();
+            db.Movies.Add(movie);
+            db.SaveChanges();
+
         }
 
         // PUT: api/Movie/5
-        public void Put(int id, [FromBody]string value)
+        public void Put(int id, [FromBody]Movie movie)
         {
+            ApplicationDbContext db = new ApplicationDbContext();
+            var movie1 = db.Movies.FirstOrDefault(m => m.MovieId == id);
+            movie1.DirectorName = movie.DirectorName;
+            movie1.Director = movie.Director;
+            movie1.Title = movie.Title;
+
+            db.SaveChanges();
         }
 
         // DELETE: api/Movie/5
         public void Delete(int id)
         {
-
+            ApplicationDbContext db = new ApplicationDbContext();
+            db.Movies.Remove(db.Movies.FirstOrDefault(m => m.MovieId == id));
+            db.SaveChanges();
         }
     }
 }
