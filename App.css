@@ -1,11 +1,8 @@
-
 body {
-  background-color: linen;
-}
-
-h1 {
-  color: maroon;
-  margin-left: 40px;
-} 
-
-
+    background-color: cyan;
+  }
+  
+  h1 {
+    color: navy;
+    margin-left: 20px;
+  }
