@@ -40,11 +40,29 @@ namespace MovieLibrary.Controllers
         }
         
         // POST: api/Movie
-        public void Post([FromBody]Movie movie)
+        public HttpResponseMessage Post([FromBody]Movie movie)
         {
-            ApplicationDbContext db = new ApplicationDbContext();
-            db.Movies.Add(movie);
-            db.SaveChanges();
+            try
+            {
+                using (ApplicationDbContext db = new ApplicationDbContext())
+                {
+                    db.Movies.Add(movie);
+                    db.SaveChanges();
+
+                    var message = Request.CreateResponse(HttpStatusCode.Created, movie);
+                    message.Headers.Location = new Uri(Request.RequestUri + movie.MovieId.ToString());
+
+
+                    return message;
+                }
+
+
+
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex);
+            }
 
         }
 

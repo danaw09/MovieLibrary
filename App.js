@@ -21,8 +21,30 @@
             }
         });
 
-        e.preventDefault();
-    }
+        
+        
 
+        e.preventDefault();
+
+        
+        
+    }
+        
     $('#my-form').submit( processForm );
-})(jQuery); 
+
+
+})(jQuery);
+function updateMovieLibrary(){}
+var data
+   $.ajax({
+       type: 'GET',
+       url: "http://localhost:44398//api/movie",
+       data: 'json',
+       contentType: 'application/json',
+       success: updateMovieLibrary (resp)
+       (function( data, textStatus, jQxhr ){
+        $('#response').html( data );
+         
+       }
+   )
+})
