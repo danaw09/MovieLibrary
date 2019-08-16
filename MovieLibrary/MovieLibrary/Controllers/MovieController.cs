@@ -44,8 +44,8 @@ namespace MovieLibrary.Controllers
         {
             try
             {
-                using (ApplicationDbContext db = new ApplicationDbContext())
-                {
+                //using (ApplicationDbContext db = new ApplicationDbContext())
+                //{
                     db.Movies.Add(movie);
                     db.SaveChanges();
 
@@ -54,7 +54,7 @@ namespace MovieLibrary.Controllers
 
 
                     return message;
-                }
+                //}
 
 
 
@@ -67,18 +67,20 @@ namespace MovieLibrary.Controllers
         }
 
         // PUT: api/Movie/5
+        [HttpPut]
         public void Put(int id, [FromBody]Movie movie)
         {
-            ApplicationDbContext db = new ApplicationDbContext();
-            var movie1 = db.Movies.FirstOrDefault(m => m.MovieId == id);
+            //ApplicationDbContext db = new ApplicationDbContext();
+            Movie movie1 = db.Movies.FirstOrDefault(m => m.MovieId == id);
             movie1.DirectorName = movie.DirectorName;
-            movie1.Director = movie.Director;
+            movie1.Genre = movie.Genre;
             movie1.Title = movie.Title;
 
             db.SaveChanges();
         }
 
         // DELETE: api/Movie/5
+        [HttpDelete]
         public void Delete(int id)
         {
             ApplicationDbContext db = new ApplicationDbContext();
